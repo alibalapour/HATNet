@@ -60,7 +60,7 @@ https://pytorch.org/
 ## Install other dependencies
 Other dependencies can be installed by running the below command:
 ```
-pip install -r requirements.txt 
+pip install --upgrade -r requirements.txt || true
 ```
 
 ----
