@@ -137,7 +137,7 @@ class Evaluator(object):
                                                    )
                     # add dummy batch dimension
                     words = words.unsqueeze(dim=0)
-                    print(words)
+                    print(words.shape)
                     # prediction
                     model_pred = prediction(
                         words=words,
