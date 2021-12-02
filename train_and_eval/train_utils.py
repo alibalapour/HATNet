@@ -50,8 +50,9 @@ def prediction(words, cnn_model, mi_model, max_bsz_cnn_gpu0, num_gpus, device, *
     new_dict = {}
     for k, v in data.items():
         new_dict[k] = np.array(v.cpu().detach())
-    bag_scores = new_dict['bag_scores']
-    print('bag_scores :', bag_scores)
+    bag_scores = new_dict['bag_scores'].squeeze()
+    top_20 = bag_scores.argsort()[-20:][::-1]
+    print('top_20 bags :', top_20)
     ##############################################
 
     return output
