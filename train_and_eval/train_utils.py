@@ -46,6 +46,7 @@ def prediction(words, cnn_model, mi_model, max_bsz_cnn_gpu0, num_gpus, device, *
     import collections
 
     data = dict(attns._asdict())
+    print(data)
     with open('data.json', 'wb') as f:
         json.dump(data, f)
     ##############################################
