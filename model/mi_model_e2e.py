@@ -120,7 +120,6 @@ class MIModel(torch.nn.Module):
         words_self_attn, w2w_attn_wts_unnorm = self.attn_ovr_words(words_cnn, need_attn=need_attn)
         # Identify important words in a bag
         words_sa_energy, words_sa_energy_unnorm = self.energy_function(words_self_attn, need_attn=need_attn)
-        print(words_sa_energy.shape, words_sa_energy)
 
         # Merge self-attended words with their importance scores to yeild bags
         # [B x N_b x 1 x N_w] x [B x N_b x N_w x d] --> [B x N_b x d]
@@ -147,6 +146,7 @@ class MIModel(torch.nn.Module):
         # Merge bags with their importance scores to identify slide-level features
         # (B x N_b x d) --> (B x 1 x d)
         bags_energy, bags_energy_unnorm = self.energy_function(bags_self_attn, need_attn=need_attn)
+        print(bags_energy.shape, bags_energy)
         # (B x 1 x d) x (B x N_b x d) --> (B x d)
         bags_to_slide = torch.matmul(bags_energy, bags_self_attn).squeeze(-2)
         out = self.ffn_b2s(bags_to_slide)
