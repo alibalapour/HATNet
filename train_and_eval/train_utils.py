@@ -37,12 +37,12 @@ def prediction(words, cnn_model, mi_model, max_bsz_cnn_gpu0, num_gpus, device, *
                                       device=device)
 
     word_features = word_features.to(device=device)
-    print(word_features.size())
+
     # [B x N_b x N_w X F] --> [B x classes] + optional attention outputs
     output, attns = mi_model(word_features, *args, **kwargs)
 
     ##############################################
-    print(attns.shape, attns)
+    print(attns)
     ##############################################
 
     return output
