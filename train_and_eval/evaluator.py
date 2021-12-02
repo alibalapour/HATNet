@@ -32,9 +32,9 @@ class Evaluator(object):
         self.global_setter()
 
     def global_setter(self):
-        self.setup_device()
-        self.setup_dataloader()
-        self.setup_model()
+        self.setup_device()                # set gpu device
+        self.setup_dataloader()            # set dataset and dataloader
+        self.setup_model()                 # set and load pre-trained model
 
     def setup_device(self):
         num_gpus = torch.cuda.device_count()
@@ -81,7 +81,7 @@ class Evaluator(object):
                                base_feature_odim=odim
                                )
 
-        if self.opts.weights_test:
+        if self.opts.weights_test:                               # load pre-trained model
             wts_loc = self.opts.weights_test
             if not os.path.isfile(wts_loc):
                 print_error_message('No file exists here: {}'.format(wts_loc))
@@ -125,7 +125,7 @@ class Evaluator(object):
                 for (bag_sz_sc, word_sz_sc) in bag_word_pairs:
                     assert bag_sz_sc % word_sz_sc == 0
                     num_bags_words_wh = bag_sz_sc // word_sz_sc
-                    words = convert_image_to_words(image_name=image_name,
+                    words, np_words = convert_image_to_words(image_name=image_name,
                                                    bag_width=bag_sz_sc,
                                                    bag_height=bag_sz_sc,
                                                    num_bags_h=num_bags_words_wh,
@@ -133,11 +133,12 @@ class Evaluator(object):
                                                    word_width=word_sz_sc,
                                                    word_height=word_sz_sc,
                                                    is_training=False,
-                                                   return_orig_wsi_np=False
+                                                   return_orig_wsi_np=True
                                                    )
                     # add dummy batch dimension
                     words = words.unsqueeze(dim=0)
-                    print(words.shape)
+                    np_words = np_words.unsqueezer(dim=0)
+                    print(np_words.shape)
                     # prediction
                     model_pred = prediction(
                         words=words,
