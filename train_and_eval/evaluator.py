@@ -143,6 +143,7 @@ class Evaluator(object):
                     word0 = words[0, 0, 0]
                     import numpy as np
                     import PIL.Image as Image
+                    word0 = np.array(word0.cpu().detach())
                     word0 = word0.transpose((1, 2, 0))
                     img = Image.fromarray(np.uint8(word0*255)).convert('RGB')
                     img.save(str(batch_id)+'_image.png')
