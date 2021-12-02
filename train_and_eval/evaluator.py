@@ -125,7 +125,7 @@ class Evaluator(object):
                 for (bag_sz_sc, word_sz_sc) in bag_word_pairs:
                     assert bag_sz_sc % word_sz_sc == 0
                     num_bags_words_wh = bag_sz_sc // word_sz_sc
-                    words, np_words = convert_image_to_words(image_name=image_name,
+                    words = convert_image_to_words(image_name=image_name,
                                                    bag_width=bag_sz_sc,
                                                    bag_height=bag_sz_sc,
                                                    num_bags_h=num_bags_words_wh,
@@ -133,11 +133,11 @@ class Evaluator(object):
                                                    word_width=word_sz_sc,
                                                    word_height=word_sz_sc,
                                                    is_training=False,
-                                                   return_orig_wsi_np=True
+                                                   return_orig_wsi_np=False
                                                    )
                     # add dummy batch dimension
                     words = words.unsqueeze(dim=0)
-                    print(np_words.shape)
+                    print(words.shape)
                     # prediction
                     model_pred = prediction(
                         words=words,
