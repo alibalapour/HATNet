@@ -44,11 +44,15 @@ def prediction(words, cnn_model, mi_model, max_bsz_cnn_gpu0, num_gpus, device, *
     ##############################################
     import json
     import collections
+    import numpy as np
 
     data = dict(attns._asdict())
     print(data)
+    new_dict = {}
+    for k, v in data.items():
+        new_dict[k] = np.array(v.cpu().detach())
     with open('data.json', 'wb') as f:
-        json.dump(data, f)
+        json.dump(new_dict, f)
     ##############################################
 
     return output
