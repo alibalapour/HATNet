@@ -106,7 +106,10 @@ def convert_image_to_words(image_name: str,
     words = np.reshape(words, (num_bags, -1, word_height, word_width, channel))
 
     # normalize the words
-    words = normalize_words_np(words)
+
+    #######################################
+    # words = normalize_words_np(words)
+    #######################################
 
     # convert from NUMPY to TORCH
     words_torch = torch.from_numpy(words).float()
