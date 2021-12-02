@@ -108,7 +108,7 @@ def convert_image_to_words(image_name: str,
     # normalize the words
 
     #######################################
-    # words = normalize_words_np(words)
+    words = normalize_words_np(words)
     #######################################
 
     # convert from NUMPY to TORCH
