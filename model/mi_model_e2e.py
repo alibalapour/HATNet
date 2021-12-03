@@ -56,6 +56,7 @@ class MIModel(torch.nn.Module):
 
         self.attn_type = attn_type
 
+        self.counter = 0
         self.reset_params()
 
     def reset_params(self):
@@ -147,16 +148,25 @@ class MIModel(torch.nn.Module):
         # (B x N_b x d) --> (B x 1 x d)
         bags_energy, bags_energy_unnorm = self.energy_function(bags_self_attn, need_attn=need_attn)
 
-        ##############################################
-        # print(bags_energy.shape, bags_energy)
-        ##############################################
-
         # (B x 1 x d) x (B x N_b x d) --> (B x d)
         bags_to_slide = torch.matmul(bags_energy, bags_self_attn).squeeze(-2)
         out = self.ffn_b2s(bags_to_slide)
 
         # STEP 5: Classify to diagnostic categories using information from Step 4
         #(B x d) --> (B x C)
+        ###########################################################################
+        import numpy as np
+        import codecs, json
+
+        counter =
+        a = np.array(out.cpu().detach())
+        b = a.tolist()  # nested lists with same data, indices
+        file_path = str(self.counter) + "_output.json"  ## your path variable
+        self.counter += 1
+        json.dump(b, codecs.open(file_path, 'w', encoding='utf-8'), separators=(',', ':'), sort_keys=True,
+                  indent=4)  ### this saves the array in .json format
+        ###########################################################################
+
         out = self.classifier(out)
 
         if need_attn:
