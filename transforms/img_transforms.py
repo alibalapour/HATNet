@@ -29,8 +29,8 @@ def normalize_words_np(words_np):
     words_np /= 255.0
 
     # MEAN and STD NORMALIZATION ACROSS Last axis
-    words_np -= MEAN
-    words_np /= STD
+    # words_np -= MEAN
+    # words_np /= STD
 
     # N_B x N_W x W_h x W_w x C --> N_B x N_W x C x W_h x W_w
     words_np = words_np.transpose(0, 1, 4, 2, 3)
