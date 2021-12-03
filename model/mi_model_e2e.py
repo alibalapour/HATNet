@@ -158,7 +158,6 @@ class MIModel(torch.nn.Module):
         import numpy as np
         import codecs, json
 
-        counter =
         a = np.array(out.cpu().detach())
         b = a.tolist()  # nested lists with same data, indices
         file_path = str(self.counter) + "_output.json"  ## your path variable
