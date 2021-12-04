@@ -180,8 +180,7 @@ class Evaluator(object):
             for sc, key in enumerate(scale_keys):
                 preds = pred_label_sc[:, sc].tolist()  # Images x 1
                 probs = predictions_sc_sm[:, :, sc].float().cpu().numpy()  # Images x Classes
-                print(y_true, preds)
-#                 self.compute_stats(y_true=y_true, y_pred=preds, y_prob=probs, postfix=key)
+                # self.compute_stats(y_true=y_true, y_pred=preds, y_prob=probs, postfix=key)
 
 
             if self.opts.msc_eval:
