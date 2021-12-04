@@ -33,6 +33,9 @@ def get_data_loader(opts):
                                    )
 
         diag_classes = train_dataset.n_classes
+        ###############################################################
+        print(diag_classes)
+        ###############################################################
         bag_word_size = (opts.bag_size, opts.word_size)
 
         diag_labels = train_dataset.diag_labels
