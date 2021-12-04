@@ -33,9 +33,6 @@ def get_data_loader(opts):
                                    )
 
         diag_classes = train_dataset.n_classes
-        ###############################################################
-        print(diag_classes)
-        ###############################################################
         bag_word_size = (opts.bag_size, opts.word_size)
 
         diag_labels = train_dataset.diag_labels
@@ -107,6 +104,11 @@ def get_test_data_loader(opts):
                                                   )
 
         diag_classes = 4
+        
+        ###############################################################
+        diag_classes = 2
+        ###############################################################
+        
         class_names = test_dataset.class_names
     else:
         print_error_message('{} dataset not supported yet'.format(opts.dataset))
