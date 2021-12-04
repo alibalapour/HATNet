@@ -139,7 +139,7 @@ class Evaluator(object):
                     words = words.unsqueeze(dim=0)
 
                     #############################################################
-                    print(image_name)
+                    # print(image_name)
                     #############################################################
 
                     # prediction
