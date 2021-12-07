@@ -103,10 +103,9 @@ def get_test_data_loader(opts):
                                                   num_workers=opts.data_workers,
                                                   )
 
-        diag_classes = 4
-        
+
         ###############################################################
-        diag_classes = 2
+        diag_classes = 4
         ###############################################################
         
         class_names = test_dataset.class_names
