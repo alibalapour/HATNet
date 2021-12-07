@@ -181,7 +181,8 @@ class Evaluator(object):
                 preds = pred_label_sc[:, sc].tolist()  # Images x 1
                 probs = predictions_sc_sm[:, :, sc].float().cpu().numpy()  # Images x Classes
                 print('Evaluation Finished')
-                print(y_true, preds)
+                print('True Labels :', y_true)
+                print('Predictions :', preds)
                 self.compute_stats(y_true=y_true, y_pred=preds, y_prob=probs, postfix=key)
 
 
