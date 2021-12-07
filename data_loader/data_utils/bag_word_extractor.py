@@ -79,8 +79,7 @@ def convert_image_to_words(image_name: str,
     if is_training:
         wsi = random_transform_np(wsi)
 
-    roi_h, roi_w, channel = wsi.shape[:3]
-    print(roi_h, roi_w, channel, wsi.shape)
+    roi_h, roi_w, channel = wsi.shape[:3]             # 12544, 12544, 3
 
     ## Notations
     # H--> Height, W --> Width , C --> Channels,
@@ -94,7 +93,7 @@ def convert_image_to_words(image_name: str,
     bags = np.reshape(wsi, (roi_h, num_bags_h, bag_width, channel))
     # [H x N_B_w x B_W x C] --> [N_B_w x H x B_W x C]
     bags = bags.transpose(1, 0, 2, 3)
-    # [N_B_w x H x B_W x C] --> [N_B_w * N_B_h x B_H x B_W x C]
+    # [N_B_w x H x B_W x C] --> [(N_B_w * N_B_h) x B_H x B_W x C]
     bags = np.reshape(bags, (num_bags, bag_height, bag_width, channel))
 
 
