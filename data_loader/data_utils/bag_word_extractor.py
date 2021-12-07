@@ -80,6 +80,7 @@ def convert_image_to_words(image_name: str,
         wsi = random_transform_np(wsi)
 
     roi_h, roi_w, channel = wsi.shape[:3]
+    print(roi_h, roi_w, channel, wsi.shape)
 
     ## Notations
     # H--> Height, W --> Width , C --> Channels,
