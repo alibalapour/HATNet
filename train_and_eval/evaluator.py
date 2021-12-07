@@ -236,12 +236,12 @@ class Evaluator(object):
         cmat_np_arr = np.array(cmat)
         results_summary['confusion_mat'] = cmat_np_arr.tolist()
 
-        plot_confusion_matrix(
-            cmat_array=cmat_np_arr,
-            class_names=self.class_names,
-            save_loc=save_loc,
-            file_name=cmat_file_name
-        )
+        # plot_confusion_matrix(
+        #     cmat_array=cmat_np_arr,
+        #     class_names=self.class_names,
+        #     save_loc=save_loc,
+        #     file_name=cmat_file_name
+        # )
         print_log_message('Confusion matrix plot is saved here: {}'.format(save_loc))
 
         # Compute results from confusion matrix
