@@ -125,7 +125,7 @@ class Evaluator(object):
                 for (bag_sz_sc, word_sz_sc) in bag_word_pairs:
                     assert bag_sz_sc % word_sz_sc == 0
                     num_bags_words_wh = bag_sz_sc // word_sz_sc
-                    print(num_bags_words_wh, bag_sz_sc)
+
                     words = convert_image_to_words(image_name=image_name,
                                                    bag_width=bag_sz_sc,
                                                    bag_height=bag_sz_sc,
