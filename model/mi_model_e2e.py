@@ -166,7 +166,15 @@ class MIModel(torch.nn.Module):
                   indent=4)  ### this saves the array in .json format
         ###########################################################################
 
-        out = self.classifier(out)
+        ###########################################################################
+        from sklearn.cluster import KMeans
+        kmeans = KMeans(n_clusters=2, random_state=1)
+        out = kmeans.fit_predict(out)
+        ###########################################################################
+
+        ###########################################################################
+        # out = self.classifier(out)
+        ###########################################################################
 
         if need_attn:
             words_energy_unnorm = words_sa_energy_unnorm + words_cnn_energy_unnorm
