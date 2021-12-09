@@ -157,6 +157,7 @@ class Evaluator(object):
                     )
 
                     ###########################################################################
+                    import numpy as np
                     predictions.append(np.array(model_pred.cpu().detach()).squeeze())
                     ###########################################################################
 
