@@ -171,6 +171,7 @@ class MIModel(torch.nn.Module):
         import numpy as np
         kmeans = KMeans(n_clusters=2, random_state=1)
         out = np.array(out.cpu().detach())
+        print(out.shape, out)
         out = kmeans.fit_predict(out)
         print(out)
         ###########################################################################
