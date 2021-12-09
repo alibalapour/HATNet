@@ -174,14 +174,10 @@ class Evaluator(object):
             import numpy as np
             kmeans = KMeans(n_clusters=2, random_state=1)
             out = kmeans.fit_predict(predictions)
-            print(out)
-            y_true = out
             ###########################################################################
 
-            ###########################################################################
-            # # Images x 1
-            # y_true = torch.cat(y_true, dim=0).numpy().tolist()
-            ###########################################################################
+            # Images x 1
+            y_true = torch.cat(y_true, dim=0).numpy().tolist()
 
             # Different scale predictions
             scale_keys = predictions_dict.keys()
@@ -200,8 +196,12 @@ class Evaluator(object):
             pred_label_sc = pred_label_sc.byte().cpu().numpy()  # Images x Scales
 
             for sc, key in enumerate(scale_keys):
-                preds = pred_label_sc[:, sc].tolist()  # Images x 1
-                probs = predictions_sc_sm[:, :, sc].float().cpu().numpy()  # Images x Classes
+                ###########################################################################
+                # preds = pred_label_sc[:, sc].tolist()  # Images x 1
+                # probs = predictions_sc_sm[:, :, sc].float().cpu().numpy()  # Images x Classes
+                preds = out
+                probs = []
+                ###########################################################################
                 print('Evaluation Finished')
                 print('True Labels :', y_true)
                 print('Predictions :', preds)
@@ -281,19 +281,22 @@ class Evaluator(object):
         print_log_message('Plotting ROC curves')
         y_true = np.array(y_true)
         y_true_oh = np.eye(self.diag_classes)[y_true]
-        y_prob = np.array(y_prob)
 
-        plot_roc(
-            ground_truth=y_true_oh,
-            pred_probs=y_prob,
-            n_classes=self.diag_classes,
-            class_names=self.class_names,
-            dataset_name=self.opts.dataset,
-            save_loc=save_loc,
-            file_name=roc_file_name
-        )
-        print_log_message(
-            'Done with plotting ROC curves. See here for plots: {}'.format(self.opts.savedir))
+        ###########################################################################
+        # y_prob = np.array(y_prob)
+        #
+        # plot_roc(
+        #     ground_truth=y_true_oh,
+        #     pred_probs=y_prob,
+        #     n_classes=self.diag_classes,
+        #     class_names=self.class_names,
+        #     dataset_name=self.opts.dataset,
+        #     save_loc=save_loc,
+        #     file_name=roc_file_name
+        # )
+        # print_log_message(
+        #     'Done with plotting ROC curves. See here for plots: {}'.format(self.opts.savedir))
+        ###########################################################################
 
         # write the results to csv file
         writer = DictWriter(file_name=results_file_name, format='csv')
