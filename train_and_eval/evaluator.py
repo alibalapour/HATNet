@@ -114,6 +114,9 @@ class Evaluator(object):
                                                 if self.opts.msc_eval else [(self.opts.bag_size, self.opts.word_size)]
 
             predictions_dict = {}
+            ##################################################################################
+            predictions = []
+            ##################################################################################
             for batch_id, batch in tqdm(enumerate(self.test_loader)):
                 image_name, true_diag_labels = batch
                 if isinstance(image_name, (tuple, list)):
@@ -139,9 +142,9 @@ class Evaluator(object):
                     # add dummy batch dimension
                     words = words.unsqueeze(dim=0)
 
-                    #############################################################
+                    ###########################################################################
                     # print(image_name)
-                    #############################################################
+                    ###########################################################################
 
                     # prediction
                     model_pred = prediction(
@@ -153,14 +156,31 @@ class Evaluator(object):
                         device=self.device
                     )
 
+                    ###########################################################################
+                    predictions.append(np.array(model_pred.cpu().detach()).squeeze())
+                    ###########################################################################
+
+
                     scale_key = 'bag_{}_word_{}'.format(bag_sz_sc, word_sz_sc)
                     if scale_key not in predictions_dict:
                         predictions_dict[scale_key] = [model_pred.cpu()]
                     else:
                         predictions_dict[scale_key].append(model_pred.cpu())
 
-            # Images x 1
-            y_true = torch.cat(y_true, dim=0).numpy().tolist()
+
+            ###########################################################################
+            from sklearn.cluster import KMeans
+            import numpy as np
+            kmeans = KMeans(n_clusters=2, random_state=1)
+            out = kmeans.fit_predict(predictions)
+            print(out)
+            y_true = out
+            ###########################################################################
+
+            ###########################################################################
+            # # Images x 1
+            # y_true = torch.cat(y_true, dim=0).numpy().tolist()
+            ###########################################################################
 
             # Different scale predictions
             scale_keys = predictions_dict.keys()
